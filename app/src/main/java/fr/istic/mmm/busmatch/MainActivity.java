@@ -27,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Lancement du service d'authentification
         startActivityForResult(
                 AuthUI.getInstance()
                         .createSignInIntentBuilder()
@@ -36,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Méthode appelée lorsque l'authentification est faite
+     * Méthode appelée lorsque l'authentification est finalisée
      * @param requestCode
      * @param resultCode
      * @param data
