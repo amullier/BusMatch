@@ -15,6 +15,7 @@ import android.view.View;
 
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
+import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -22,6 +23,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 import java.util.Arrays;
 import java.util.List;
@@ -116,8 +118,13 @@ public class MainActivity extends AppCompatActivity {
                 DatabaseReference activeUserRef = mDatabase.child("activeUsers").push();
                 activeUserRef.setValue(activeUser);
 
+                ActiveUsersListener.getInstance().setActiveUser(activeUser);
+
+                Query queryActiveUsers = mDatabase.child("activeUsers").orderByChild("timestamp").limitToFirst(100);
+                queryActiveUsers.addValueEventListener(ActiveUsersListener.getInstance());
+
             } else {
-                logger.info("La connexion a echoué");
+                logger.info("La connexion a échoué");
             }
         }
     }

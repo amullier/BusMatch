@@ -16,7 +16,7 @@ public class ActiveUser {
 
     private String username;
     private String email;
-    private Date date;
+    private Long timestamp;
     private Location location;
 
     public ActiveUser() {
@@ -31,7 +31,7 @@ public class ActiveUser {
     public ActiveUser(String username, String email) {
         this.username = username;
         this.email = email;
-        this.date = new Date();
+        this.timestamp = -(System.currentTimeMillis()/1000);
     }
 
     public String getUsername() {
@@ -50,12 +50,12 @@ public class ActiveUser {
         this.email = email;
     }
 
-    public Date getDate() {
-        return date;
+    public Long getTimestamp() {
+        return timestamp;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setTimestamp(Long timestamp) {
+        this.timestamp = timestamp;
     }
 
     public Location getLocation() {
@@ -71,7 +71,7 @@ public class ActiveUser {
         return "ActiveUser{" +
                 "username='" + username + '\'' +
                 ", email='" + email + '\'' +
-                ", date=" + date +
+                ", timestamp=" + timestamp +
                 ", location=" + location +
                 '}';
     }
