@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "213862028938",
-    "firebase_url": "https://busmatch-bf2d5.firebaseio.com",
-    "project_id": "busmatch-bf2d5",
-    "storage_bucket": "busmatch-bf2d5.appspot.com"
+    "project_number": "415201560343",
+    "firebase_url": "https://busmatch-b482d.firebaseio.com",
+    "project_id": "busmatch-b482d",
+    "storage_bucket": "busmatch-b482d.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:213862028938:android:822dfc30806e5fd8",
+        "mobilesdk_app_id": "1:415201560343:android:39ac1e408f33aee8",
         "android_client_info": {
           "package_name": "fr.istic.mmm.busmatch"
         }
       },
       "oauth_client": [
         {
-          "client_id": "213862028938-rbgrq6jpmrvvhjdb1qckbgktlu3dsrf3.apps.googleusercontent.com",
+          "client_id": "415201560343-up2fgp2u7q34j4rrb2082ugpmcgqk3rt.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC1kATpASP1uPXalfMt9jilgvWOkVJQTqs"
+          "current_key": "AIzaSyD5N8QGin1iGeq2gWh2lABL3DDlA6zT_IE"
         }
       ],
       "services": {

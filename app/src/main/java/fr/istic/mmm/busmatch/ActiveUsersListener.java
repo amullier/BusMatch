@@ -53,7 +53,7 @@ public class ActiveUsersListener implements ValueEventListener {
         activeUserList.clear();
         for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
             ActiveUser activeUser = postSnapshot.getValue(ActiveUser.class);
-            if(activeUser.getEmail()!=activeUser.getEmail()){
+            if(!activeUser.getEmail().equals(activeUser.getEmail())){
                 activeUserList.add(activeUser);
                 logger.info("Ajout de l'activeUser : " + activeUser.toString());
             }

@@ -15,7 +15,6 @@ import android.view.View;
 
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
-import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -23,10 +22,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import fr.istic.mmm.busmatch.fragment.DiscutionFragment;
@@ -128,8 +128,10 @@ public class MainActivity extends AppCompatActivity {
                 logger.info("Connexion de l'utilisateur : " + activeUser);
 
                 mDatabase = FirebaseDatabase.getInstance().getReference();
-                DatabaseReference activeUserRef = mDatabase.child("activeUsers").push();
-                activeUserRef.setValue(activeUser);
+                Map<String, Object> map = new HashMap<>();
+                map.put(userFirebase.getUid(),activeUser);
+
+                mDatabase.child("activeUsers").updateChildren(map);
 
                 ActiveUsersListener.getInstance().setActiveUser(activeUser);
 
