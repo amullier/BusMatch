@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
 
     // Stockage de l'utilisateur actif
-    private ActiveUser activeUser;
+    private User user;
 
     //TODO : Service de localisation  : en développement
     private FusedLocationProviderClient mFusedLocationClient;
@@ -122,18 +122,20 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseUser userFirebase = FirebaseAuth.getInstance().getCurrentUser();
 
                 //Ajouter l'utilisateur dans la base des utilisateurs actifs
-                activeUser = new ActiveUser(userFirebase.getDisplayName(), userFirebase.getEmail());
-                setLocationToActiveUser(null);
+                user = new User(userFirebase.getDisplayName(), userFirebase.getEmail());
+                user.setActive(true);
 
-                logger.info("Connexion de l'utilisateur : " + activeUser);
+                logger.info("Connexion de l'utilisateur : " + user);
 
                 mDatabase = FirebaseDatabase.getInstance().getReference();
                 Map<String, Object> map = new HashMap<>();
-                map.put(userFirebase.getUid(),activeUser);
+                map.put(userFirebase.getUid(), user);
 
                 mDatabase.child("activeUsers").updateChildren(map);
 
-                ActiveUsersListener.getInstance().setActiveUser(activeUser);
+                ActiveUsersListener.getInstance().setActiveUser(user);
+
+                mDatabase.child("activeUsers").addValueEventListener(ActiveUsersListener.getInstance());
 
             } else {
                 logger.info("La connexion a échoué");
@@ -143,7 +145,20 @@ public class MainActivity extends AppCompatActivity {
 
     public void signOut(View v) {
         FirebaseAuth.getInstance().signOut();
-        logger.info("Deconnexion de l'utilisateur : " + activeUser);
+        logger.info("Deconnexion de l'utilisateur : " + user);
+
+        //Mise a jour de l'utilisateur actif->non actif dans firebase
+        FirebaseUser userFirebase = FirebaseAuth.getInstance().getCurrentUser();
+
+        //Ajouter l'utilisateur dans la base des utilisateurs actifs
+        user = new User(userFirebase.getDisplayName(), userFirebase.getEmail());
+        user.setActive(false);
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        Map<String, Object> map = new HashMap<>();
+        map.put(userFirebase.getUid(), user);
+
+        mDatabase.child("activeUsers").updateChildren(map);
     }
 
     /**
@@ -159,8 +174,8 @@ public class MainActivity extends AppCompatActivity {
                 .addOnSuccessListener(this, new OnSuccessListener<Location>() {
                     @Override
                     public void onSuccess(Location location) {
-                        if(activeUser!=null){
-                            activeUser.setLocation(location);
+                        if(user !=null){
+                            user.setLocation(location);
                             if (location == null) {
                                 logger.warning("La localisation est null");
                             }

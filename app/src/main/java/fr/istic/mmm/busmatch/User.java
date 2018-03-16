@@ -12,15 +12,16 @@ import java.util.Date;
  * Entité qui représente un utilisateur actif
  */
 @IgnoreExtraProperties
-public class ActiveUser {
+public class User {
 
     private String username;
     private String email;
     private Long timestamp;
     private Location location;
+    private boolean active;
 
-    public ActiveUser() {
-        // Default constructor required for calls to DataSnapshot.getValue(ActiveUser.class)
+    public User() {
+        // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
     /**
@@ -28,7 +29,7 @@ public class ActiveUser {
      * @param username
      * @param email
      */
-    public ActiveUser(String username, String email) {
+    public User(String username, String email) {
         this.username = username;
         this.email = email;
         this.timestamp = -(System.currentTimeMillis()/1000);
@@ -66,9 +67,17 @@ public class ActiveUser {
         this.location = location;
     }
 
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
     @Override
     public String toString() {
-        return "ActiveUser{" +
+        return "User{" +
                 "username='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", timestamp=" + timestamp +

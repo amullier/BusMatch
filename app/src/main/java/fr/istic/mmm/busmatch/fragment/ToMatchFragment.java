@@ -1,13 +1,11 @@
 package fr.istic.mmm.busmatch.fragment;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -15,7 +13,7 @@ import com.google.firebase.database.Query;
 
 import java.util.ArrayList;
 import java.util.List;
-import fr.istic.mmm.busmatch.ActiveUser;
+import fr.istic.mmm.busmatch.User;
 import fr.istic.mmm.busmatch.ActiveUsersListener;
 import fr.istic.mmm.busmatch.R;
 
@@ -24,7 +22,7 @@ public class ToMatchFragment extends ListFragment {
     //Référence à la base de donnée Firebase
     private DatabaseReference mDatabase;
 
-    private List<ActiveUser> userToMatch = new ArrayList<>();
+    private List<User> userToMatch = new ArrayList<>();
 
     private List<String> userName = new ArrayList<>();
 
@@ -35,7 +33,7 @@ public class ToMatchFragment extends ListFragment {
         Query queryActiveUsers = mDatabase.child("activeUsers").orderByChild("timestamp").limitToFirst(100);
         queryActiveUsers.addValueEventListener(ActiveUsersListener.getInstance());
 
-        userToMatch.add(new ActiveUser("toto" , "toto@gmail.com"));
+        userToMatch.add(new User("toto" , "toto@gmail.com"));
         userName.add("toto");
     }
 

@@ -1,14 +1,11 @@
 package fr.istic.mmm.busmatch;
 
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Logger;
 
 /**
@@ -18,9 +15,9 @@ import java.util.logging.Logger;
 public class ActiveUsersListener implements ValueEventListener {
     private final Logger logger = Logger.getLogger(ActiveUsersListener.class.getName());
 
-    private static List<ActiveUser> activeUserList = new ArrayList<>();
+    private static List<User> userList = new ArrayList<>();
     private static ActiveUsersListener instance;
-    private static ActiveUser activeUser;
+    private static User user;
 
     private ActiveUsersListener() {
     }
@@ -32,34 +29,34 @@ public class ActiveUsersListener implements ValueEventListener {
         return instance;
     }
 
-    public void setActiveUser(ActiveUser activeUser){
-        ActiveUsersListener.activeUser = activeUser;
+    public void setActiveUser(User user){
+        ActiveUsersListener.user = user;
     }
 
     /**
      * Retourne la liste des utilisateurs actifs avec un potentiel match
      * @return
      */
-    public List<ActiveUser> getActiveUserList(){
-        List<ActiveUser> activeUserListClone = new ArrayList<>();
-        for (ActiveUser activeUser : activeUserList){
-            activeUserListClone.add(activeUser);
+    public List<User> getActiveUserList(){
+        List<User> userListClone = new ArrayList<>();
+        for (User user : userList){
+            userListClone.add(user);
         }
-        return activeUserListClone;
+        return userListClone;
     }
 
     @Override
     public void onDataChange(DataSnapshot dataSnapshot) {
-        activeUserList.clear();
+        userList.clear();
         for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-            ActiveUser activeUser = postSnapshot.getValue(ActiveUser.class);
-            if(!activeUser.getEmail().equals(activeUser.getEmail())){
-                activeUserList.add(activeUser);
-                logger.info("Ajout de l'activeUser : " + activeUser.toString());
+            User userInList = postSnapshot.getValue(User.class);
+            if( user ==null || !user.getEmail().equals(userInList.getEmail())){
+                userList.add(userInList);
+                logger.info("Ajout de l'user : " + userInList.toString());
             }
         }
         logger.info("Taille actuelle de la liste des utilisateurs actifs : "
-                + activeUserList.size());
+                + userList.size());
     }
 
     @Override
