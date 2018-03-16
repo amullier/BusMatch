@@ -32,7 +32,7 @@ public class ActiveUsersListener implements ValueEventListener {
         return instance;
     }
 
-    public static void setActiveUser(ActiveUser activeUser){
+    public void setActiveUser(ActiveUser activeUser){
         ActiveUsersListener.activeUser = activeUser;
     }
 
@@ -40,7 +40,7 @@ public class ActiveUsersListener implements ValueEventListener {
      * Retourne la liste des utilisateurs actifs avec un potentiel match
      * @return
      */
-    public static List<ActiveUser> getActiveUserList(){
+    public List<ActiveUser> getActiveUserList(){
         List<ActiveUser> activeUserListClone = new ArrayList<>();
         for (ActiveUser activeUser : activeUserList){
             activeUserListClone.add(activeUser);
