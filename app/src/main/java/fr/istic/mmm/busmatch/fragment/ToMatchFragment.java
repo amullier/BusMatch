@@ -1,51 +1,80 @@
 package fr.istic.mmm.busmatch.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
+import com.mindorks.placeholderview.SwipeDecor;
+import com.mindorks.placeholderview.SwipePlaceHolderView;
 
 import java.util.ArrayList;
 import java.util.List;
-import fr.istic.mmm.busmatch.User;
+
+import fr.istic.mmm.busmatch.ActiveUser;
 import fr.istic.mmm.busmatch.ActiveUsersListener;
+import fr.istic.mmm.busmatch.BusMatchCard;
 import fr.istic.mmm.busmatch.R;
 
 public class ToMatchFragment extends ListFragment {
 
-    //Référence à la base de donnée Firebase
-    private DatabaseReference mDatabase;
-
-    private List<User> userToMatch = new ArrayList<>();
-
+    private ActiveUsersListener userService = ActiveUsersListener.getInstance();
+    private List<ActiveUser> userToMatch;
     private List<String> userName = new ArrayList<>();
+
+
+    private SwipePlaceHolderView mSwipeView;
+    private Context mContext;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        Query queryActiveUsers = mDatabase.child("activeUsers").orderByChild("timestamp").limitToFirst(100);
-        queryActiveUsers.addValueEventListener(ActiveUsersListener.getInstance());
-
-        userToMatch.add(new User("toto" , "toto@gmail.com"));
-        userName.add("toto");
+        //userToMatch = userService.getActiveUserList();
+        userToMatch = new ArrayList<>();
+        ActiveUser us = new ActiveUser();
+        us.setUsername("tot");
+        userToMatch.add(us);
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), R.layout.user_list_view, userName);
+        /*ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), R.layout.user_list_view, userName);
 
-        //ListView listView = (ListView)findViewById(R.id.personToMatch);
+        setListAdapter(adapter);*/
 
-        setListAdapter(adapter);
+
+        mSwipeView = (SwipePlaceHolderView)getActivity().findViewById(R.id.swipeView);
+        mContext = getActivity().getApplicationContext();
+
+        mSwipeView.getBuilder()
+                .setDisplayViewCount(3)
+                .setSwipeDecor(new SwipeDecor()
+                        .setPaddingTop(20)
+                        .setRelativeScale(0.01f));
+
+
+
+        for(ActiveUser actUser : userToMatch) {
+            mSwipeView.addView(new BusMatchCard(mContext, actUser, mSwipeView));
+        }
+
+        getActivity().findViewById(R.id.rejectBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mSwipeView.doSwipe(false);
+            }
+        });
+
+        getActivity().findViewById(R.id.acceptBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mSwipeView.doSwipe(true);
+            }
+        });
     }
 
     @Override
