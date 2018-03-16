@@ -69,9 +69,12 @@ public class MainActivity extends AppCompatActivity {
         //Lancement du service de localisation
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
+
+        //Gestion du Menu
         BottomNavigationView bottomNavigation = (BottomNavigationView)
                 findViewById(R.id.bottom_navigation);
 
+        //Routing du menu vers des fragments
         bottomNavigation.setOnNavigationItemSelectedListener
                 (new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -129,9 +132,6 @@ public class MainActivity extends AppCompatActivity {
                 activeUserRef.setValue(activeUser);
 
                 ActiveUsersListener.getInstance().setActiveUser(activeUser);
-
-                Query queryActiveUsers = mDatabase.child("activeUsers").orderByChild("timestamp").limitToFirst(100);
-                queryActiveUsers.addValueEventListener(ActiveUsersListener.getInstance());
 
             } else {
                 logger.info("La connexion a échoué");
