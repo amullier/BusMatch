@@ -29,6 +29,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
+import fr.istic.mmm.busmatch.fragment.DiscutionFragment;
+import fr.istic.mmm.busmatch.fragment.IsMatchFragment;
+import fr.istic.mmm.busmatch.fragment.ToMatchFragment;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 123;
@@ -65,18 +69,27 @@ public class MainActivity extends AppCompatActivity {
         //Lancement du service de localisation
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
+
+        //Gestion du Menu
         BottomNavigationView bottomNavigation = (BottomNavigationView)
                 findViewById(R.id.bottom_navigation);
 
+        //Routing du menu vers des fragments
         bottomNavigation.setOnNavigationItemSelectedListener
                 (new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         Fragment selectedFragment = null;
-                        switch (item.getItemId()) {
-                            case (R.id.tomatch):
-                            case (R.id.ismatch):
-                            case (R.id.discution):
+                        switch (item.getItemId()){
+                            case (R.id.tomatch) :
+                                selectedFragment = new ToMatchFragment();
+                                break;
+                            case (R.id.ismatch) :
+                                selectedFragment = new IsMatchFragment();
+                                break;
+                            case (R.id.discution) :
+                                selectedFragment = new DiscutionFragment();
+                                break;
                         }
                         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                         transaction.replace(R.id.frame_layout, selectedFragment);
@@ -87,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Manually displaying the first fragment - one time only
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        //transaction.replace(R.id.frame_layout, //select first fragment);
+        transaction.replace(R.id.frame_layout, new ToMatchFragment());
         transaction.commit();
     }
 
@@ -119,9 +132,6 @@ public class MainActivity extends AppCompatActivity {
                 activeUserRef.setValue(activeUser);
 
                 ActiveUsersListener.getInstance().setActiveUser(activeUser);
-
-                Query queryActiveUsers = mDatabase.child("activeUsers").orderByChild("timestamp").limitToFirst(100);
-                queryActiveUsers.addValueEventListener(ActiveUsersListener.getInstance());
 
             } else {
                 logger.info("La connexion a échoué");
