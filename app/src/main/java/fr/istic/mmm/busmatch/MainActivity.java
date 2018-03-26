@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import fr.istic.mmm.busmatch.domain.User;
 import fr.istic.mmm.busmatch.fragment.DiscutionFragment;
 import fr.istic.mmm.busmatch.fragment.IsMatchFragment;
 import fr.istic.mmm.busmatch.fragment.ToMatchFragment;

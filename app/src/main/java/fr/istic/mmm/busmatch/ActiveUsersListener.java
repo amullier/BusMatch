@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import fr.istic.mmm.busmatch.domain.User;
+
 /**
  * Created by antoine on 14/03/18.
  */

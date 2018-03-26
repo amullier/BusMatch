@@ -5,7 +5,12 @@ import android.widget.TextView;
 
 import com.mindorks.placeholderview.SwipePlaceHolderView;
 import com.mindorks.placeholderview.annotations.Layout;
+import com.mindorks.placeholderview.annotations.Resolve;
 import com.mindorks.placeholderview.annotations.View;
+
+import java.util.logging.Logger;
+
+import fr.istic.mmm.busmatch.domain.User;
 
 /**
  * Created by bob on 16/03/18.
@@ -13,6 +18,8 @@ import com.mindorks.placeholderview.annotations.View;
 
 @Layout(R.layout.busmatch_card_view)
 public class BusMatchCard {
+
+    private final Logger logger = Logger.getLogger(MainActivity.class.getName());
 
     /*@View(R.id.profileImageView)
     private ImageView profileImageView;*/
@@ -23,22 +30,22 @@ public class BusMatchCard {
     @View(R.id.locationNameTxt)
     private TextView locationNameTxt;
 
-    private ActiveUser activeUser;
+    private User user;
     private Context mContext;
     private SwipePlaceHolderView mSwipeView;
 
-    public BusMatchCard(Context context, ActiveUser user, SwipePlaceHolderView swipeView) {
+    public BusMatchCard(Context context, User user, SwipePlaceHolderView swipeView) {
         mContext = context;
-        activeUser = user;
+        this.user = user;
         mSwipeView = swipeView;
     }
 
-    /*@Resolve
+    @Resolve
     private void onResolved(){
-        Glide.with(mContext).load(mProfile.getImageUrl()).into(profileImageView);
-        nameAgeTxt.setText(mProfile.getName() + ", " + mProfile.getAge());
-        locationNameTxt.setText(mProfile.getLocation());
-    }*/
+        //Glide.with(mContext).load(mProfile.getImageUrl()).into(profileImageView);
+        nameAgeTxt.setText(user.getUsername());
+        locationNameTxt.setText(user.getEmail());
+    }
 
     /*@SwipeOut
     private void onSwipedOut(){

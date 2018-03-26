@@ -13,15 +13,15 @@ import com.mindorks.placeholderview.SwipePlaceHolderView;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.istic.mmm.busmatch.ActiveUser;
 import fr.istic.mmm.busmatch.ActiveUsersListener;
 import fr.istic.mmm.busmatch.BusMatchCard;
 import fr.istic.mmm.busmatch.R;
+import fr.istic.mmm.busmatch.domain.User;
 
 public class ToMatchFragment extends ListFragment {
 
     private ActiveUsersListener userService = ActiveUsersListener.getInstance();
-    private List<ActiveUser> userToMatch;
+    private List<User> userToMatch;
     private List<String> userName = new ArrayList<>();
 
 
@@ -31,11 +31,7 @@ public class ToMatchFragment extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //userToMatch = userService.getActiveUserList();
-        userToMatch = new ArrayList<>();
-        ActiveUser us = new ActiveUser();
-        us.setUsername("tot");
-        userToMatch.add(us);
+        userToMatch = userService.getActiveUserList();
     }
 
     @Override
@@ -58,7 +54,7 @@ public class ToMatchFragment extends ListFragment {
 
 
 
-        for(ActiveUser actUser : userToMatch) {
+        for(User actUser : userToMatch) {
             mSwipeView.addView(new BusMatchCard(mContext, actUser, mSwipeView));
         }
 

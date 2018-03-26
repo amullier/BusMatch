@@ -1,4 +1,4 @@
-package fr.istic.mmm.busmatch;
+package fr.istic.mmm.busmatch.domain;
 
 import android.location.Location;
 
@@ -11,7 +11,6 @@ import java.util.Date;
 /**
  * Entité qui représente un utilisateur actif
  */
-@IgnoreExtraProperties
 public class User {
 
     private String username;
@@ -19,6 +18,8 @@ public class User {
     private Long timestamp;
     private Location location;
     private boolean active;
+    private int age;
+    private EGenre genre;
 
     public User() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
@@ -73,6 +74,22 @@ public class User {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public EGenre getGenre() {
+        return genre;
+    }
+
+    public void setGenre(EGenre genre) {
+        this.genre = genre;
     }
 
     @Override
