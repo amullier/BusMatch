@@ -38,6 +38,8 @@ import fr.istic.mmm.busmatch.fragment.ToMatchFragment;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String DB_FIELD_USER="users";
+
     private static final int RC_SIGN_IN = 123;
 
     private final Logger logger = Logger.getLogger(MainActivity.class.getName());
@@ -137,11 +139,11 @@ public class MainActivity extends AppCompatActivity {
                 Map<String, Object> map = new HashMap<>();
                 map.put(userFirebase.getUid(), user);
 
-                mDatabase.child("activeUsers").updateChildren(map);
+                mDatabase.child(DB_FIELD_USER).updateChildren(map);
 
                 ActiveUsersListener.getInstance().setActiveUser(user);
 
-                mDatabase.child("activeUsers").addValueEventListener(ActiveUsersListener.getInstance());
+                mDatabase.child(DB_FIELD_USER).addValueEventListener(ActiveUsersListener.getInstance());
 
             } else {
                 logger.info("La connexion a échoué");
