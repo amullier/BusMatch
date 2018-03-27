@@ -20,6 +20,7 @@ public class User {
     private boolean active;
     private int age;
     private EGenre genre;
+    private String description;
 
     public User() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
@@ -90,6 +91,14 @@ public class User {
 
     public void setGenre(EGenre genre) {
         this.genre = genre;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override

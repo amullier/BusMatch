@@ -29,7 +29,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import butterknife.OnClick;
 import fr.istic.mmm.busmatch.domain.User;
+import fr.istic.mmm.busmatch.fragment.ConfigFragment;
 import fr.istic.mmm.busmatch.fragment.DiscutionFragment;
 import fr.istic.mmm.busmatch.fragment.IsMatchFragment;
 import fr.istic.mmm.busmatch.fragment.ToMatchFragment;
@@ -90,6 +92,9 @@ public class MainActivity extends AppCompatActivity {
                                 break;
                             case (R.id.discution) :
                                 selectedFragment = new DiscutionFragment();
+                                break;
+                            case (R.id.config) :
+                                selectedFragment = new ConfigFragment();
                                 break;
                         }
                         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

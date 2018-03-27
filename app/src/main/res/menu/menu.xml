@@ -9,4 +9,6 @@
     <item android:id="@+id/discution"
         android:title="discution" />
         <!--android:icon="@drawable/talk"-->
+    <item android:id="@+id/config"
+        android:title="config" />
 </menu>

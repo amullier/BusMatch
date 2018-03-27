@@ -21,14 +21,17 @@ public class BusMatchCard {
 
     private final Logger logger = Logger.getLogger(MainActivity.class.getName());
 
-    /*@View(R.id.profileImageView)
-    private ImageView profileImageView;*/
+    @View(R.id.nameTxt)
+    private TextView nameTxt;
 
-    @View(R.id.nameAgeTxt)
-    private TextView nameAgeTxt;
+    @View(R.id.ageTxt)
+    private TextView ageTxt;
 
-    @View(R.id.locationNameTxt)
-    private TextView locationNameTxt;
+    @View(R.id.genreTxt)
+    private TextView genreTxt;
+
+    @View(R.id.descriptionTxt)
+    private TextView descriptionTxt;
 
     private User user;
     private Context mContext;
@@ -43,8 +46,10 @@ public class BusMatchCard {
     @Resolve
     private void onResolved(){
         //Glide.with(mContext).load(mProfile.getImageUrl()).into(profileImageView);
-        nameAgeTxt.setText(user.getUsername());
-        locationNameTxt.setText(user.getEmail());
+        nameTxt.setText(user.getUsername());
+        ageTxt.setText(user.getAge());
+        genreTxt.setText(user.getGenre().toString());
+        descriptionTxt.setText(user.getDescription());
     }
 
     /*@SwipeOut
