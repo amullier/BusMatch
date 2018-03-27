@@ -38,10 +38,6 @@ public class ToMatchFragment extends ListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        /*ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), R.layout.user_list_view, userName);
-
-        setListAdapter(adapter);*/
-
 
         mSwipeView = (SwipePlaceHolderView)getActivity().findViewById(R.id.swipeView);
         mContext = getActivity().getApplicationContext();

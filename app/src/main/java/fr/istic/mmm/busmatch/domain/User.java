@@ -13,12 +13,13 @@ import java.util.Date;
  */
 public class User {
 
+    private String uid;
     private String username;
     private String email;
     private Long timestamp;
     private Location location;
     private boolean active;
-    private int age;
+    private Integer age;
     private EGenre genre;
     private String description;
 
@@ -31,7 +32,8 @@ public class User {
      * @param username
      * @param email
      */
-    public User(String username, String email) {
+    public User(String uid, String username, String email) {
+        this.uid = uid;
         this.username = username;
         this.email = email;
         this.timestamp = -(System.currentTimeMillis()/1000);
@@ -39,6 +41,10 @@ public class User {
 
     public String getUsername() {
         return username;
+    }
+
+    public String getUid(){
+        return uid;
     }
 
     public void setUsername(String username) {
@@ -77,11 +83,11 @@ public class User {
         this.active = active;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 

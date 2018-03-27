@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseUser userFirebase = FirebaseAuth.getInstance().getCurrentUser();
 
                 //Ajouter l'utilisateur dans la base des utilisateurs actifs
-                user = new User(userFirebase.getDisplayName(), userFirebase.getEmail());
+                user = new User(userFirebase.getUid(),userFirebase.getDisplayName(), userFirebase.getEmail());
                 user.setActive(true);
 
                 logger.info("Connexion de l'utilisateur : " + user);
@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
         FirebaseUser userFirebase = FirebaseAuth.getInstance().getCurrentUser();
 
         //Ajouter l'utilisateur dans la base des utilisateurs actifs
-        user = new User(userFirebase.getDisplayName(), userFirebase.getEmail());
+        user = new User(userFirebase.getUid(),userFirebase.getDisplayName(), userFirebase.getEmail());
         user.setActive(false);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
