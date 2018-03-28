@@ -6,12 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import fr.istic.mmm.busmatch.ActiveUsersListener;
+import fr.istic.mmm.busmatch.service.ActiveUsersListener;
 import fr.istic.mmm.busmatch.R;
 import fr.istic.mmm.busmatch.domain.EGenre;
 import fr.istic.mmm.busmatch.domain.User;

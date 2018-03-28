@@ -7,10 +7,12 @@ import com.mindorks.placeholderview.SwipePlaceHolderView;
 import com.mindorks.placeholderview.annotations.Layout;
 import com.mindorks.placeholderview.annotations.Resolve;
 import com.mindorks.placeholderview.annotations.View;
+import com.mindorks.placeholderview.annotations.swipe.SwipeIn;
 
 import java.util.logging.Logger;
 
 import fr.istic.mmm.busmatch.domain.User;
+import fr.istic.mmm.busmatch.service.LikeService;
 
 /**
  * Created by bob on 16/03/18.
@@ -18,8 +20,6 @@ import fr.istic.mmm.busmatch.domain.User;
 
 @Layout(R.layout.busmatch_card_view)
 public class BusMatchCard {
-
-    private final Logger logger = Logger.getLogger(MainActivity.class.getName());
 
     @View(R.id.nameTxt)
     private TextView nameTxt;
@@ -45,28 +45,25 @@ public class BusMatchCard {
 
     @Resolve
     private void onResolved(){
-        //Glide.with(mContext).load(mProfile.getImageUrl()).into(profileImageView);
         nameTxt.setText(user.getUsername());
-        ageTxt.setText(user.getAge());
+        ageTxt.setText(user.getAge().toString());
         genreTxt.setText(user.getGenre().toString());
         descriptionTxt.setText(user.getDescription());
     }
 
     /*@SwipeOut
     private void onSwipedOut(){
-        Log.d("EVENT", "onSwipedOut");
         mSwipeView.addView(this);
     }*/
 
     /*@SwipeCancelState
     private void onSwipeCancelState(){
-        Log.d("EVENT", "onSwipeCancelState");
     }*/
 
-    /*@SwipeIn
+    @SwipeIn
     private void onSwipeIn(){
-        Log.d("EVENT", "onSwipedIn");
-    }*/
+        LikeService.getInstance().addLike(user);
+    }
 
     /*@SwipeInState
     private void onSwipeInState(){

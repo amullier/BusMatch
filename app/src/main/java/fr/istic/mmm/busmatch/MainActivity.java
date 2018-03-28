@@ -29,12 +29,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import butterknife.OnClick;
 import fr.istic.mmm.busmatch.domain.User;
 import fr.istic.mmm.busmatch.fragment.ConfigFragment;
 import fr.istic.mmm.busmatch.fragment.DiscutionFragment;
 import fr.istic.mmm.busmatch.fragment.IsMatchFragment;
 import fr.istic.mmm.busmatch.fragment.ToMatchFragment;
+import fr.istic.mmm.busmatch.service.ActiveUsersListener;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -130,7 +130,8 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseUser userFirebase = FirebaseAuth.getInstance().getCurrentUser();
 
                 //Ajouter l'utilisateur dans la base des utilisateurs actifs
-                user = new User(userFirebase.getUid(),userFirebase.getDisplayName(), userFirebase.getEmail());
+                ActiveUsersListener.getInstance().setActiveUser(userFirebase);
+                /*user = new User(userFirebase.getUid(),userFirebase.getDisplayName(), userFirebase.getEmail());
                 user.setActive(true);
 
                 logger.info("Connexion de l'utilisateur : " + user);
@@ -140,11 +141,12 @@ public class MainActivity extends AppCompatActivity {
                 map.put(userFirebase.getUid(), user);
 
                 mDatabase.child(DB_FIELD_USER).updateChildren(map);
+                mDatabase.child("user").get
 
                 ActiveUsersListener.getInstance().setActiveUser(user);
 
                 mDatabase.child(DB_FIELD_USER).addValueEventListener(ActiveUsersListener.getInstance());
-
+*/
             } else {
                 logger.info("La connexion a échoué");
             }
@@ -166,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
         Map<String, Object> map = new HashMap<>();
         map.put(userFirebase.getUid(), user);
 
-        mDatabase.child("activeUsers").updateChildren(map);
+        mDatabase.child("users").updateChildren(map);
     }
 
     /**
